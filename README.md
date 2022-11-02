@@ -15,7 +15,7 @@ You will get an email when things go wrong
 
 ### 1. Code POC
 Prove that I can detect when an image has changed
-- [ ] Take a screenshot with playwright
+- [x] Take a screenshot with playwright
 - [ ] Compare it with another
 
 ### 2. Deployment POC
