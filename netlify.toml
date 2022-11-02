@@ -1,2 +1,4 @@
 [functions.screenshot]
   external_node_modules = ["chrome-aws-lambda"]
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
