@@ -1,3 +1,5 @@
+[functions]
+  directory = "netlify/functions"
 [functions.screenshot]
   external_node_modules = ["chrome-aws-lambda"]
 [[plugins]]
