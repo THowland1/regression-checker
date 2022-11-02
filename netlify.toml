@@ -1,8 +1,9 @@
 [functions]
   directory = "netlify/functions"
 [build]
-  command = "cd ./client && yarn build"
-  publish = "client/out"
+  base = "client"
+  command = "yarn build"
+  publish = "out"
 [functions.screenshot]
   external_node_modules = ["chrome-aws-lambda"]
 [[plugins]]
