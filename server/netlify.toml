@@ -2,3 +2,5 @@
   directory = "netlify/functions"
 [functions.screenshot]
   external_node_modules = ["chrome-aws-lambda"]
+[context]
+  environment = { AWS_LAMBDA_JS_RUNTIME = "nodejs14.x" }
