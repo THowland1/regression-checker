@@ -7,9 +7,8 @@ export const handler: Handler = async (event, { awsRequestId }) => {
   return {
     statusCode: 200,
     headers: {
-      "Cache-Control": `public, max-age=${9999999}`,
+      "Access-Control-Allow-Origin": "*",
       "Content-Type": "image/png",
-      Expires: new Date(Date.now() + 9999999 * 1000).toUTCString(),
     },
     body: screen!.toString("base64"),
     isBase64Encoded: true,
