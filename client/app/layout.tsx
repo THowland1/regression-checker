@@ -1,4 +1,7 @@
+import '../styles/reset.scss'
 import '../styles/globals.scss'
+import styles from './Layout.module.scss'
+
 
 export default function RootLayout({
   children,
@@ -8,7 +11,7 @@ export default function RootLayout({
   return (
     <html>
       <head></head>
-      <body>{children}</body>
+      <body className={styles.body}>{children}</body>
     </html>
   )
 }
