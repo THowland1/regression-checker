@@ -5,6 +5,7 @@ import { useState } from "react";
 import { apiClient } from "../api/api-client";
 import Input from "./Input";
 import { Formik } from "formik";
+import { useRouter } from "next/navigation";
 
 type DeviceSize = "mobile" | "tablet" | "desktop";
 
@@ -16,17 +17,22 @@ const SIZES: Record<DeviceSize, { width: number; height: number }> = {
 
 export default function Home() {
   const [image, setImage] = useState<string | undefined>(undefined);
+  const router = useRouter();
 
   async function getScreenshot(props: {
     url: string;
     width: number;
     height: number;
   }) {
-    const result = await apiClient.getScreenshot(props);
-    console.log(result);
-    const blob = await result.blob();
-    setImage(URL.createObjectURL(blob));
-    return result;
+    const res = await apiClient.postMonitor({
+      height: props.height,
+      width: props.width,
+      interval_cron: "@every 5m",
+      name: "BBC News Front Page",
+      url: props.url,
+      wait_for: "networkidle2",
+    });
+    router.push(`./monitors/${res.monitorid}`);
   }
   return (
     <div className="absolute inset-0 m-auto">

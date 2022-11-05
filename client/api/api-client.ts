@@ -1,4 +1,8 @@
+import { z } from "zod";
 import { environment } from "../environment";
+
+const CRON_REGEX =
+  /(@(annually|yearly|monthly|weekly|daily|hourly|reboot))|(@every (\d+(ns|us|µs|ms|s|m|h))+)|((((\d+,)+\d+|(\d+(\/|-)\d+)|\d+|\*) ?){5,7})/;
 
 async function getScreenshot(props: {
   url: string;
@@ -18,4 +22,57 @@ async function getScreenshot(props: {
   const response = await fetch(url);
   return response;
 }
-export const apiClient = { getScreenshot };
+
+const NewMonitorSchema = z.object({
+  width: z.number().positive(),
+  height: z.number().positive(),
+  url: z.string().url(),
+  interval_cron: z.string().regex(CRON_REGEX),
+  name: z.string(),
+  wait_for: z.union([
+    z.literal("load"),
+    z.literal("domcontentloaded"),
+    z.literal("networkidle0"),
+    z.literal("networkidle2"),
+  ]),
+});
+const MonitorSchema = z.object({
+  monitorid: z.string().uuid(),
+  created_at: z.string(),
+  width: z.number().positive(),
+  height: z.number().positive(),
+  url: z.string().url(),
+  interval_cron: z.string().regex(CRON_REGEX),
+  name: z.string(),
+  wait_for: z.union([
+    z.literal("load"),
+    z.literal("domcontentloaded"),
+    z.literal("networkidle0"),
+    z.literal("networkidle2"),
+  ]),
+});
+
+async function postMonitor(newMonitor: z.infer<typeof NewMonitorSchema>) {
+  const POST_URL = `${environment.NEXT_PUBLIC_API_URL}/.netlify/functions/monitors`;
+
+  const response = await fetch(POST_URL, {
+    body: JSON.stringify(newMonitor),
+    method: "POST",
+  });
+  const responseBody = await response.json();
+  const monitor = MonitorSchema.parse(responseBody);
+
+  return monitor;
+}
+
+async function getMonitor(monitorid: string) {
+  const GET_URL = `${environment.NEXT_PUBLIC_API_URL}/.netlify/functions/monitors?monitorid=${monitorid}`;
+
+  const response = await fetch(GET_URL);
+  const responseBody = await response.json();
+  const monitor = MonitorSchema.parse(responseBody);
+
+  return monitor;
+}
+
+export const apiClient = { getScreenshot, postMonitor, getMonitor };
