@@ -1,8 +1,14 @@
 {
+  "scripts": {
+    "dev": "netlify functions:serve --port 55977",
+    "supabase:start": "supabase start",
+    "supabase:gentypes": "npx supabase gen types typescript --project-id \"foiutkrdejenowspyqvk\" --schema public > types/supabase.ts"
+  },
   "devDependencies": {
     "@netlify/functions": "^1.3.0",
     "@types/pixelmatch": "^5.2.4",
-    "@types/pngjs": "^6.0.1"
+    "@types/pngjs": "^6.0.1",
+    "supabase": "^1.11.7"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.0.4",
@@ -10,6 +16,7 @@
     "image-size": "^1.0.2",
     "pixelmatch": "^5.3.0",
     "pngjs": "^6.0.0",
-    "puppeteer-core": "10.1"
+    "puppeteer-core": "10.1",
+    "zod": "^3.19.1"
   }
 }

@@ -37,13 +37,19 @@ async function getBrowser() {
   }
 }
 
-export async function screenshot() {
+type ScreenshotProps = {
+  viewport: puppeteer.Viewport;
+  url: string;
+  waitFor: puppeteer.WaitForOptions;
+};
+
+export async function screenshot(props: ScreenshotProps) {
   const browser = await getBrowser();
   const page = await browser.newPage();
 
-  await page.setViewport({ width: 1920, height: 1080 });
+  await page.setViewport(props.viewport);
 
-  await page.goto("https://heardlify.app", { waitUntil: "networkidle2" });
+  await page.goto(props.url, props.waitFor);
 
   const screenshot = await page.screenshot();
 

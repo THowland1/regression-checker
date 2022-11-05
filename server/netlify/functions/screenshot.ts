@@ -1,8 +1,20 @@
 import { Handler } from "@netlify/functions";
 import { screenshot } from "../utils/screenshot";
+import { z } from "zod";
+
+const Schema = z.object({
+  url: z.string(),
+  width: z.string().regex(/^\d+$/).transform(Number),
+  height: z.string().regex(/^\d+$/).transform(Number),
+});
 
 export const handler: Handler = async (event, { awsRequestId }) => {
-  const screen = await screenshot();
+  const props = Schema.parse(event.queryStringParameters);
+  const screen = await screenshot({
+    viewport: { width: props.width, height: props.height },
+    url: props.url,
+    waitFor: { waitUntil: "networkidle2" },
+  });
 
   return {
     statusCode: 200,
