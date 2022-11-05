@@ -1,9 +1,11 @@
+import { environment } from "../environment";
+
 async function getScreenshot(props: {
   url: string;
   width: number;
   height: number;
 }) {
-  const BASE_URL = "http://localhost:55977/.netlify/functions/screenshot";
+  const BASE_URL = `${environment.NEXT_PUBLIC_API_URL}/.netlify/functions/screenshot`;
   const url = new URL(BASE_URL);
 
   const params = new URLSearchParams({
