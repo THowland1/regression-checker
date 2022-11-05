@@ -37,7 +37,7 @@ const NewMonitorSchema = z.object({
   ]),
 });
 const MonitorSchema = z.object({
-  monitorid: z.string().uuid(),
+  monitor_id: z.string().uuid(),
   created_at: z.string(),
   width: z.number().positive(),
   height: z.number().positive(),
@@ -65,8 +65,8 @@ async function postMonitor(newMonitor: z.infer<typeof NewMonitorSchema>) {
   return monitor;
 }
 
-async function getMonitor(monitorid: string) {
-  const GET_URL = `${environment.NEXT_PUBLIC_API_URL}/.netlify/functions/monitors?monitorid=${monitorid}`;
+async function getMonitor(monitor_id: string) {
+  const GET_URL = `${environment.NEXT_PUBLIC_API_URL}/.netlify/functions/monitors?monitor_id=${monitor_id}`;
 
   const response = await fetch(GET_URL);
   const responseBody = await response.json();

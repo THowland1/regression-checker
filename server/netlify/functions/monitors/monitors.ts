@@ -7,7 +7,7 @@ const CRON_REGEX =
   /(@(annually|yearly|monthly|weekly|daily|hourly|reboot))|(@every (\d+(ns|us|µs|ms|s|m|h))+)|((((\d+,)+\d+|(\d+(\/|-)\d+)|\d+|\*) ?){5,7})/;
 
 const MonitorQuerySchema = z.object({
-  monitorid: z.string(),
+  monitor_id: z.string(),
 });
 const NewMonitorSchema = z.object({
   width: z.number().positive(),
@@ -77,7 +77,7 @@ export const handler: Handler = async (event, { awsRequestId }) => {
       const { data, error } = await client
         .from("monitor")
         .select()
-        .eq("monitorid", query.monitorid)
+        .eq("monitor_id", query.monitor_id)
         .single();
       if (data) {
         return {

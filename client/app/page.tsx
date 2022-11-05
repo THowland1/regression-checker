@@ -32,7 +32,7 @@ export default function Home() {
       url: props.url,
       wait_for: "networkidle2",
     });
-    router.push(`./monitors/${res.monitorid}`);
+    router.push(`./monitors/${res.monitor_id}`);
   }
   return (
     <div className="absolute inset-0 m-auto">

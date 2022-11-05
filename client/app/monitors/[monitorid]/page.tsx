@@ -9,12 +9,12 @@ type PageProps<TParams = {}, TSearchParams = {}> = {
   searchParams: TSearchParams;
 };
 export default function Page({
-  params: { monitorid },
-}: PageProps<{ monitorid: string }>) {
+  params: { monitor_id },
+}: PageProps<{ monitor_id: string }>) {
   const [image, setImage] = useState<string | undefined>(undefined);
 
   const { isLoading, isError, data } = useQuery({
-    queryKey: ["monitors", monitorid] as const,
+    queryKey: ["monitors", monitor_id] as const,
     queryFn: (props) => {
       return apiClient.getMonitor(props.queryKey[1]);
     },
