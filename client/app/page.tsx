@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <div className="absolute inset-0 m-auto">
       <div className="container m-auto pt-16">
-        <h1 className="text-7xl text-center">
+        <h1 className="text-6xl text-center">
           PageHawk watches your websites for you
         </h1>
 

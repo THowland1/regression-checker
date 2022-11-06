@@ -11,7 +11,6 @@ export interface Database {
     Tables: {
       monitor: {
         Row: {
-          monitor_id: string;
           created_at: string;
           width: number;
           height: number;
@@ -19,9 +18,9 @@ export interface Database {
           interval_cron: string;
           wait_for: string;
           name: string;
+          monitor_id: string;
         };
         Insert: {
-          monitor_id?: string;
           created_at?: string;
           width: number;
           height: number;
@@ -29,9 +28,9 @@ export interface Database {
           interval_cron: string;
           wait_for: string;
           name: string;
+          monitor_id?: string;
         };
         Update: {
-          monitor_id?: string;
           created_at?: string;
           width?: number;
           height?: number;
@@ -39,6 +38,39 @@ export interface Database {
           interval_cron?: string;
           wait_for?: string;
           name?: string;
+          monitor_id?: string;
+        };
+      };
+      snapshot: {
+        Row: {
+          snapshot_id: string;
+          created_at: string;
+          monitor_id: string;
+          image_url: string;
+          diff_image_url: string;
+          diff_pixel_count: number;
+          small_image_url: string;
+          medium_image_url: string;
+        };
+        Insert: {
+          snapshot_id?: string;
+          created_at?: string;
+          monitor_id: string;
+          image_url: string;
+          diff_image_url: string;
+          diff_pixel_count: number;
+          small_image_url: string;
+          medium_image_url: string;
+        };
+        Update: {
+          snapshot_id?: string;
+          created_at?: string;
+          monitor_id?: string;
+          image_url?: string;
+          diff_image_url?: string;
+          diff_pixel_count?: number;
+          small_image_url?: string;
+          medium_image_url?: string;
         };
       };
     };

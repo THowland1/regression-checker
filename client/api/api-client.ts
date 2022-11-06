@@ -51,6 +51,9 @@ const MonitorSchema = z.object({
     z.literal("networkidle2"),
   ]),
 });
+const NewSnaphotSchema = z.object({
+  monitor_id: z.string().uuid(),
+});
 
 async function postMonitor(newMonitor: z.infer<typeof NewMonitorSchema>) {
   const POST_URL = `${environment.NEXT_PUBLIC_API_URL}/.netlify/functions/monitors`;
@@ -75,4 +78,22 @@ async function getMonitor(monitor_id: string) {
   return monitor;
 }
 
-export const apiClient = { getScreenshot, postMonitor, getMonitor };
+async function postSnapshot(newSnapshot: z.infer<typeof NewSnaphotSchema>) {
+  const POST_URL = `${environment.NEXT_PUBLIC_API_URL}/.netlify/functions/snapshots`;
+
+  const response = await fetch(POST_URL, {
+    body: JSON.stringify(newSnapshot),
+    method: "POST",
+  });
+  const responseBody = await response.json();
+  const monitor = MonitorSchema.parse(responseBody);
+
+  return monitor;
+}
+
+export const apiClient = {
+  getScreenshot,
+  postMonitor,
+  getMonitor,
+  postSnapshot,
+};

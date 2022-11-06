@@ -51,7 +51,9 @@ export async function screenshot(props: ScreenshotProps) {
 
   await page.goto(props.url, props.waitFor);
 
-  const screenshot = await page.screenshot();
-
-  return screenshot;
+  const screenshot = await page.screenshot({ encoding: "binary" });
+  if (screenshot instanceof Buffer) {
+    return screenshot;
+  }
+  throw new Error("screenshot must be a binary buffer");
 }
