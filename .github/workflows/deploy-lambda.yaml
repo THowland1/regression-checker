@@ -35,3 +35,4 @@ jobs:
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: PingPushover
           zip_file: lambdas/PingPushover/function.zip
+          environment: PUSHOVER_APPLICATION_KEY=${{ secrets.PUSHOVER_APPLICATION_KEY }},PUSHOVER_USER_KEY=${{ secrets.PUSHOVER_USER_KEY }},
